@@ -1,6 +1,6 @@
 <?php
 
-session_start();
+@session_start();
 
 if (isset($_REQUEST["mitgliedid"]) && isset($_REQUEST["token"])) {
 	$mitgliedid = stripslashes($_REQUEST["mitgliedid"]);
@@ -28,4 +28,11 @@ function getMitgliedDetails() {
 
 	requireAuth();
 	return $vpanel->getMitglied($_SESSION["mv_mitgliedid"]);
+}
+
+function modifyMitgliedDetails($kommentar, $changes) {
+	global $vpanel;
+
+	requireAuth();
+	return $vpanel->modifyMitglied($_SESSION["mv_mitgliedid"], $kommentar . " (von " . $_SERVER["REMOTE_ADDR"] . ")", $changes);
 }

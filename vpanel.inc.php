@@ -51,8 +51,8 @@ class VPanel {
 		return $this->callApi('mitglied.php', array("mitgliedid" => $mitgliedid))->mitglied;
 	}
 
-	function modifyMitglied($mitgliedid, $changes) {
-		return $this->callApi('modifymitglied.php', array("mitgliedid" => $mitgliedid, "changes" => $changes));
+	function modifyMitglied($mitgliedid, $kommentar, $changes) {
+		return $this->callApi('modifymitglied.php', array("mitgliedid" => $mitgliedid, "changes" => $changes, "kommentar" => $kommentar));
 	}
 }
 
