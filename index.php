@@ -122,13 +122,74 @@ foreach ($mitglied->beitraege as $beitrag) {
 <?php
 switch ($zahlung) {
 case "einzug-sepa":
+?>
+<p>Wir ziehen deinen Mitgliedsbeitrag via SEPA immer zum Jahresbeginn ein. Wir werden dich etwa eine Woche vor Einzugstermin daran erinnern.</p>
+<form class="form-horizontal">
+ <div class="control-group">
+  <label class="control-label">Kontoinhaber</label>
+  <div class="controls">
+   <span class="input-xlarge uneditable-input"><?php print(htmlentities($revision->kontakt->konto->inhaber)) ?></span>
+  </div>
+ </div>
+ <div class="control-group">
+  <label class="control-label">IBAN</label>
+  <div class="controls">
+   <span class="input-xxlarge uneditable-input"><?php print($revision->kontakt->konto->iban) ?></span>
+  </div>
+ </div>
+ <div class="control-group">
+  <label class="control-label">Kontoinhaber</label>
+  <div class="controls">
+   <span class="input-medium uneditable-input"><?php print($revision->kontakt->konto->bic) ?></span>
+  </div>
+ </div>
+ <div class="control-group">
+  <label class="control-label">GläubigerID</label>
+  <div class="controls">
+   <span class="input-medium uneditable-input">DE03 ZZZ0 0000 2504 66</span>
+  </div>
+ </div>
+ <div class="control-group">
+  <label class="control-label">Mandatsreferenznummer</label>
+  <div class="controls">
+   <span class="input-medium uneditable-input">(wird mitgeteilt)</span>
+  </div>
+ </div>
+</form>
+<?php
 	break;
 case "einzug":
+?>
+<p>Wir ziehen deinen Beitrag mittels der konventionellen Lastschrift ein. Leider läuft dieses Verfahren zum 1.2.2014 aus und wird durch SEPA-Lastschriften abgelöst. Wenn uns bis dahin kein
+ SEPA-Mandat von dir vorliegt, musst du deinen Beitrag wie bisher überweisen oder in Bar auf Mitgliederversammlungen zahlen. Am besten füllst du also <a href="#" class="createSepa">gleich
+ ein SEPA-Mandat aus</a>.</p>
+<form class="form-horizontal">
+ <div class="control-group">
+  <label class="control-label">Kontoinhaber</label>
+  <div class="controls">
+   <span class="input-xlarge uneditable-input"><?php print(htmlentities($revision->kontakt->konto->inhaber)) ?></span>
+  </div>
+ </div>
+ <div class="control-group">
+  <label class="control-label">Kontonummer</label>
+  <div class="controls">
+   <span class="input-large uneditable-input"><?php print(substr($revision->kontakt->konto->iban,13,10)) ?></span>
+  </div>
+ </div>
+ <div class="control-group">
+  <label class="control-label">Bankleitzahl</label>
+  <div class="controls">
+   <span class="input-medium uneditable-input"><?php print(substr($revision->kontakt->konto->iban,3,8)) ?></span>
+  </div>
+ </div>
+</form>
+<?php
+	// TODO Infotext
 	break;
 case "selbst":
 ?>
 <p>Du zahlst per Überweisung oder in Bar auf den Mitgliederversammlungen. Tipp: Wenn du uns ein SEPA-Lastschriftmandat erteilst, können wir deinen Mitgliedsbeitrag immer pünktlich abbuchen.
- Das spart dir und uns Ärger und Aufwand. <a href="sepa.php">Jetzt gleich einrichten</a>.</p><?php
+ Das spart dir und uns Ärger und Aufwand. <a href="#" class="createSepa">Jetzt gleich einrichten</a>.</p><?php
 	if ($mitglied->schulden > 0) {
 ?><p>Scheinbar hast du momentan noch nicht alle Beiträge bezahlt. Bitte überweise deine offenen Posten so schnell wie möglich auf unser unten stehendes Konto:</p><ul><?php
 		$labels = array();
@@ -165,14 +226,20 @@ case "selbst":
   <button class="close" data-dismiss="modal">&times;</button>
   <h3>Junge Piraten-Mailadresse einrichten</h3>
  </div>
- <div class="modal-body">
+ <div class="modal-body step1">
   <p>Wenn du möchtest, können wir dir eine Mailadresse <strong><?php print(strtolower($revision->natperson->vorname . "." . $revision->natperson->name)) ?>@junge-piraten.de</strong> einrichten, die
    du für deine Mitarbeit benutzen kannst.</p>
   <p>Du kannst auch deine Mitgliedermails auf diese Adresse einrichten, aber warte damit bitte noch, bis die Mailadresse eingerichtet wurde. Das kann bis zu <strong>vier Stunden</strong> dauern und
    du wirst zum Abschluss eine Mail an deine bisherige Mailadresse bekommen.</p>
  </div>
- <div class="modal-footer">
+ <div class="modal-footer step1">
   <button class="btn" data-dismiss="modal">Abbrechen</button>
+  <button class="btn btn-primary submit">Ok</button>
+ </div>
+ <div class="modal-body step2 hide">
+  <p>Wir haben die Einrichtung deiner Mailadresse veranlasst. Bitte warte noch damit sie zu benutzen bis du eine Bestätigungsmail erhalten hast.</p>
+ </div>
+ <div class="modal-footer step2 hide">
   <button class="btn btn-primary submit">Ok</button>
  </div>
 </div>
@@ -267,12 +334,16 @@ case "selbst":
 $(".addMail").click(function (e) {
 	e.preventDefault();
 	$(".addMailModal").modal();
-	$(".addMailModal .submit").click(function () {
+	$(".addMailModal .step1 .submit").click(function () {
 		$(this).prop("disabled", true);
 		$.post("modify.addMail.php", function () {
-			$(".btn .addMail").remove();
-			$(".addMailModal").modal("hide");
+			$(".addMailModal .step1").hide();
+			$(".addMailModal .step2").show();
 		});
+	});
+	$(".addMailModal .step2 .submit").click(function () {
+		$(".btn .addMail").remove();
+		$(".addMailModal").modal("hide");
 	});
 });
 
