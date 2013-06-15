@@ -39,6 +39,7 @@ foreach ($mitglied->beitraege as $beitrag) {
  <strong><?php print($revision->mitgliedschaft->label) ?></strong> im <strong><?php print($revision->gliederung->label) ?></strong>.
 </p>
 <div class="btn-group">
+ <?php if (!isset($mitglied->austritt)) { ?>
  <?php if (!isset($revision->flags->{VPANEL_MAILFLAG})) { ?>
  <button class="btn addMail">Junge Piraten-Mailadresse einrichten</button>
  <?php } ?>
@@ -48,7 +49,6 @@ foreach ($mitglied->beitraege as $beitrag) {
  <?php if ($zahlung == "selbst" && $currentBeitrag && $currentBeitrag->ausstehend > 0) { ?>
  <button class="btn requestExemption">Beitragsbefreiung beantragen</button>
  <?php } ?>
- <?php if (!isset($mitglied->austritt)) { ?>
  <button class="btn btn-danger quitMembership">Austreten</button>
  <?php } ?>
 </div>
