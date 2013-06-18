@@ -33,7 +33,7 @@ foreach ($mitglied->beitraege as $beitrag) {
 ?>
 <p class="lead">
  Hier kannst du deine Daten in unserer Mitgliederverwaltung einsehen und ändern! Deine Mitgliedsnummer lautet <strong><?php print($mitglied->mitgliedid) ?></strong> und du bist
- <strong><?php print($revision->mitgliedschaft->label) ?></strong> im <strong><?php print($revision->gliederung->label) ?></strong>.
+ <strong><?php print($revision->mitgliedschaft->label) ?></strong> im <strong><?php print($revision->gliederung->label) ?></strong> sowie übergeordneten Gliederungen.
 </p>
 <p>
  Beachte bitte, dass nicht alle Änderungen sofort wirksam werden. Änderungen an deinen Mitgliedsdaten musst du erst mit einem Link, den du per Mail erhältst, bestätigen.
