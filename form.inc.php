@@ -3,8 +3,8 @@
 require_once("fpdf/fpdf.php");
 require_once("fpdf/fpdi.php");
 
-function fillPDFForm($url, $codeprefix, $fdf, $fdf_opt, $porto, $destFile) {
-	$code = file_get_contents("https://poststelle.junge-piraten.de/code.php?data=" . urlencode(serialize(array($fdf, $fdf_opt))));
+function fillPDFForm($url, $codeprefix, $fdf, $fdf_opt, $data, $porto, $destFile) {
+	$code = file_get_contents("https://poststelle.junge-piraten.de/code.php?data=" . urlencode(json_encode($data)));
 
 	$rand = rand(1000,9999);
 	file_put_contents("/tmp/phppdf-".$rand."-tpl.pdf", file_get_contents("https://wiki.junge-piraten.de/wiki/Spezial:Dateipfad/SepaLastschriftmandat.pdf"));

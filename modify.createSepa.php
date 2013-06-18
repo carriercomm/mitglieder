@@ -31,6 +31,20 @@ fillPDFForm(
                 "UnterschriftDatum" => date("d.m.Y", $timestamp)
         ),
         array(),
+        array(
+        	"kategorieid" => 49,
+        	"statusid" => 3,
+        	"flags" => array(),
+        	"label" => "SEPA-Mandat " . (isset($mitglied->latest->natperson) ? $mitglied->latest->natperson->vorname . " " . $mitglied->latest->natperson->name : $mitglied->latest->jurperson->label),
+        	"identifier" => "BGS_SEPA_" . strtoupper(isset($mitglied->latest->natperson) ? substr($mitglied->latest->natperson->name,0,3) . "_" . substr($mitglied->latest->natperson->vorname,0,3) . "_" . date("Ymd", $mitglied->latest->natperson->geburtsdatum) : substr($mitglied->latest->jurperson->label,0,6)),
+        	"data" => json_encode(array(
+        		"mitglied" => $mitglied->mitgliedid,
+			"inhaber" => $inhaber,
+			"iban" => $iban,
+        		"bic" => $bic,
+        		"sigDate" => date("d.m.Y", $timestamp),
+        	)),
+        ),
         ($frankieren ? 58 : 0),
         "/tmp/sepa-" . $rand . ".pdf"
 );

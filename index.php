@@ -21,7 +21,6 @@ if (isset($revision->kontakt->konto)) {
 } else {
 	$zahlung = "none";
 }
-
 $currentBeitrag = null;
 $currentBeitragLabel = strftime($revision->beitragtimeformat->format, time());
 foreach ($mitglied->beitraege as $beitrag) {
@@ -70,7 +69,7 @@ foreach ($mitglied->beitraege as $beitrag) {
    <span class="input-small uneditable-input">
     <?php print(date("d.m.Y", $revision->natperson->geburtsdatum)) ?>
    </span>
-  </div>
+	  </div>
  </div>
  <?php } ?>
  <div class="control-group">
@@ -123,7 +122,7 @@ foreach ($mitglied->beitraege as $beitrag) {
 switch ($zahlung) {
 case "einzug-sepa":
 ?>
-<p>Wir ziehen deinen Mitgliedsbeitrag via SEPA immer zum Jahresbeginn ein. Wir werden dich etwa eine Woche vor Einzugstermin daran erinnern.</p>
+<p>Wir ziehen deinen Mitgliedsbeitrag via SEPA immer zum Jahresbeginn ein. Wir werden dich etwa eine Woche vor Einzugstermin daran erinnern und dir mitteilen, welchen Beitrag wir einziehen.</p>
 <form class="form-horizontal">
  <div class="control-group">
   <label class="control-label">Kontoinhaber</label>
@@ -134,11 +133,11 @@ case "einzug-sepa":
  <div class="control-group">
   <label class="control-label">IBAN</label>
   <div class="controls">
-   <span class="input-xxlarge uneditable-input"><?php print($revision->kontakt->konto->iban) ?></span>
+   <span class="input-xlarge uneditable-input"><?php print($revision->kontakt->konto->iban) ?></span>
   </div>
  </div>
  <div class="control-group">
-  <label class="control-label">Kontoinhaber</label>
+  <label class="control-label">BIC</label>
   <div class="controls">
    <span class="input-medium uneditable-input"><?php print($revision->kontakt->konto->bic) ?></span>
   </div>
@@ -146,13 +145,13 @@ case "einzug-sepa":
  <div class="control-group">
   <label class="control-label">GläubigerID</label>
   <div class="controls">
-   <span class="input-medium uneditable-input">DE03 ZZZ0 0000 2504 66</span>
+   <span class="input-large uneditable-input">DE03 ZZZ0 0000 2504 66</span>
   </div>
  </div>
  <div class="control-group">
   <label class="control-label">Mandatsreferenznummer</label>
   <div class="controls">
-   <span class="input-medium uneditable-input">(wird mitgeteilt)</span>
+   <span class="input-large uneditable-input">(wird mitgeteilt)</span>
   </div>
  </div>
 </form>
@@ -184,7 +183,6 @@ case "einzug":
  </div>
 </form>
 <?php
-	// TODO Infotext
 	break;
 case "selbst":
 ?>
@@ -382,7 +380,7 @@ $(".quitMembership").click(function (e) {
 
 $(".modifyMitglied .submit").click(function (e) {
 	$(this).prop("disabled", true);
-	$.post("modify.sendModifyMail.php", function () {
+	$.post("modify.sendModifyMail.php", $(".modifyMitglied").serialize(), function () {
 		$(".modifyDoneModal").modal();
 	});
 	e.preventDefault();
