@@ -13,6 +13,10 @@ if (isset($_REQUEST["mitgliedid"]) && isset($_REQUEST["token"])) {
 	}
 }
 
+function isAuthed() {
+	return isset($_SESSION["mv_mitgliedid"]);
+}
+
 function getMitgliedToken($mitgliedid = null) {
 	if ($mitgliedid == null) {
 		requireAuth();
@@ -23,7 +27,7 @@ function getMitgliedToken($mitgliedid = null) {
 }
 
 function requireAuth() {
-	if (! isset($_SESSION["mv_mitgliedid"])) {
+	if (! isAuthed()) {
 		header("Location: requestAuth.php");
 		exit;
 	}

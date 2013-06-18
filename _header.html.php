@@ -17,9 +17,10 @@ header("Content-Type: text/html; charset=utf8");
     <div class="navbar-inner">
      <div class="container">
       <a class="brand" href="/">Mitgliederverwaltung</a>
-      <ul class="nav">
-      
+      <ul class="nav pull-right">
+       
       </ul>
+      <?php if (isAuthed()) { ?><a href="logout.php" class="btn btn-danger pull-right">Abmelden</a><?php } ?>
      </div>
     </div>
    </div>
