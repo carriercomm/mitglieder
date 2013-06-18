@@ -15,7 +15,7 @@ if (isset($_POST["requestAuth"])) {
 
 	$mitglied = $vpanel->getMitglied($mitgliedid);
 	if ($mitglied != null && normalizeMail($mitglied->latest->kontakt->email->email) == normalizeMail($mailadresse)) {
-		$token = getMitgliedToken();
+		$token = getMitgliedToken($mitglied->mitgliedid);
 
 		ob_start();
 		include("requestAuth.mail.php");
