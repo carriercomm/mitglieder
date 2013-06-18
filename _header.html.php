@@ -20,7 +20,7 @@ header("Content-Type: text/html; charset=utf8");
       <ul class="nav pull-right">
        
       </ul>
-      <?php if (isAuthed()) { ?><a href="logout.php" class="btn btn-danger pull-right">Abmelden</a><?php } ?>
+      <?php if (isAuthed()) { ?><a href="logout.php" class="btn btn-info pull-right">Abmelden</a><?php } ?>
      </div>
     </div>
    </div>
