@@ -5,11 +5,11 @@ require_once(dirname(__FILE__) . "/session.inc.php");
 
 requireAuth();
 
-$greeting = "und guten Morgen";
-include("_header.html.php");
-
 $mitglied = getMitgliedDetails();
 $revision = $mitglied->latest;
+
+$greeting = "und guten Morgen";
+include("_header.html.php");
 
 if (isset($revision->kontakt->konto)) {
 	if (isset($revision->kontakt->konto->mandate)) {
