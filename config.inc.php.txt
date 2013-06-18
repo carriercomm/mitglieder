@@ -1,0 +1,15 @@
+<?php
+
+require_once(dirname(__FILE__) . "/vpanel.inc.php");
+
+define("VPANEL_BASE", "http://192.168.100.166/~prauscher/vpanel/");
+define("VPANEL_USER", "____");
+define("VPANEL_APIKEY", '____');
+define("VPANEL_SHARED", "____");
+
+define("VPANEL_MAILFLAG", "_");
+
+define("CHANGE_SHARED", "_____");
+
+$vpanel = new VPanel(VPANEL_BASE);
+$vpanel->startSession(VPANEL_USER, VPANEL_APIKEY);
