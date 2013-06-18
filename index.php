@@ -5,6 +5,7 @@ require_once(dirname(__FILE__) . "/session.inc.php");
 
 requireAuth();
 
+$greeting = "und guten Morgen";
 include("_header.html.php");
 
 $mitglied = getMitgliedDetails();
@@ -30,12 +31,12 @@ foreach ($mitglied->beitraege as $beitrag) {
 }
 
 ?>
-<div class="page-header">
- <h1>Hallo <?php print(isset($revision->natperson) ? $revision->natperson->vorname : $revision->jurperson->label) ?>, <small>und guten Morgen</small></h1>
-</div>
 <p class="lead">
  Hier kannst du deine Daten in unserer Mitgliederverwaltung einsehen und ändern! Deine Mitgliedsnummer lautet <strong><?php print($mitglied->mitgliedid) ?></strong> und du bist
  <strong><?php print($revision->mitgliedschaft->label) ?></strong> im <strong><?php print($revision->gliederung->label) ?></strong>.
+</p>
+<p>
+ Beachte bitte, dass nicht alle Änderungen sofort wirksam werden. Änderungen an deinen Mitgliedsdaten musst du erst mit einem Link, den du per Mail erhältst, bestätigen.
 </p>
 <div class="btn-group">
  <?php if (!isset($mitglied->austritt)) { ?>
@@ -316,7 +317,7 @@ case "selbst":
 <div class="modifyDoneModal modal hide">
  <div class="modal-header">
   <button class="close" data-dismiss="modal">&times;</button>
-  <h3></h3>
+  <h3>Mitgliedsdaten änden</h3>
  </div>
  <div class="modal-body">
   <p>Wir haben deine Änderungen entgegengenommen und dir eine Mail mit den neuen Daten an die neue Mailadresse geschickt.

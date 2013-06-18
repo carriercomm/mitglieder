@@ -15,8 +15,7 @@ if (isset($_POST["requestAuth"])) {
 
 	$mitglied = $vpanel->getMitglied($mitgliedid);
 	if ($mitglied != null && normalizeMail($mitglied->latest->kontakt->email->email) == normalizeMail($mailadresse)) {
-		// TODO: Mail versenden
-		$token = hash_hmac("md5", $mitgliedid, VPANEL_SHARED);
+		$token = getMitgliedToken();
 
 		ob_start();
 		include("requestAuth.mail.php");
@@ -31,13 +30,8 @@ if (isset($_POST["requestAuth"])) {
 	}
 }
 
+$greeting = "";
 include("_header.html.php");
-
-?>
-<div class="page-header">
- <h1>Anmelden</h1>
-</div>
-<?php
 
 if (isset($_REQUEST["requestSuccess"])) { ?>
 <p class="lead">

@@ -24,3 +24,6 @@ header("Content-Type: text/html; charset=utf8");
     </div>
    </div>
    <div class="container">
+    <div class="page-header">
+     <h1>Hallo<?php print(isset($mitglied) ? " " . (isset($mitglied->latest->natperson) ? $mitglied->latest->natperson->vorname : $mitglied->latest->jurperson->label) : "") ?>, <small><?php print($greeting) ?></small></h1>
+    </div>

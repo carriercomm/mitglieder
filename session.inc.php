@@ -6,14 +6,20 @@ if (isset($_REQUEST["mitgliedid"]) && isset($_REQUEST["token"])) {
 	$mitgliedid = stripslashes($_REQUEST["mitgliedid"]);
 	$token = stripslashes($_REQUEST["token"]);
 
-	if (hash_hmac("md5", $mitgliedid, VPANEL_SHARED) == $token) {
+	if (getMitgliedToken($mitgliedid) == $token) {
 		$_SESSION["mv_mitgliedid"] = $mitgliedid;
-
-		header("Location: index.php");
-		exit;
 	} else {
 		die("Invalid token!");
 	}
+}
+
+function getMitgliedToken($mitgliedid = null) {
+	if ($mitgliedid == null) {
+		requireAuth();
+		$mitgliedid = $_SESSION["mv_mitgliedid"];
+	}
+
+	return hash_hmac("md5", $mitgliedid, VPANEL_SHARED);
 }
 
 function requireAuth() {
