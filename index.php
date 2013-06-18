@@ -30,6 +30,16 @@ foreach ($mitglied->beitraege as $beitrag) {
 	}
 }
 
+$query = array(
+	"MITGLIEDID" => $mitglied->mitgliedid,
+);
+
+if (isset($revision->natperson)) {
+	$query["VORNAME"] = $revision->natperson->vorname;
+	$query["NAME"] = $revision->natperson->name;
+	$query["GEBURTSDATUM"] = $revision->natperson->geburtsdatum;
+}
+
 ?>
 <p class="lead">
  Hier kannst du deine Daten in unserer Mitgliederverwaltung einsehen und ändern! Deine Mitgliedsnummer lautet <strong><?php print($mitglied->mitgliedid) ?></strong> und du bist
@@ -49,6 +59,7 @@ foreach ($mitglied->beitraege as $beitrag) {
  <?php if ($zahlung == "selbst" && $currentBeitrag && $currentBeitrag->ausstehend > 0) { ?>
  <button class="btn requestExemption">Beitragsbefreiung beantragen</button>
  <?php } ?>
+ <a href="https://formulare.junge-piraten.de/?<?php print(http_build_query(array("fields" => $query))) ?>" class="btn quitMembership">Formulare</a>
  <button class="btn btn-danger quitMembership">Austreten</button>
  <?php } ?>
 </div>
