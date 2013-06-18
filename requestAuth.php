@@ -46,7 +46,7 @@ if (isset($_REQUEST["requestSuccess"])) { ?>
 <p class="lead">
  Anschließend schicken wir dir per Mail einen Link, mit dem du deine Mitgliedsdaten bearbeiten kannst.
 </p>
-<?php if ($authFailed === false) { ?><p class="alert alert-error">Leider konnten wir diese Kombination aus Mitgliedsnummer und Mailadresse nicht zuordnen. Wenn du nicht weiter
+<?php if ($authFailed === true) { ?><p class="alert alert-error">Leider konnten wir diese Kombination aus Mitgliedsnummer und Mailadresse nicht zuordnen. Wenn du nicht weiter
  weißt, frage uns bitte einfach unter <a href="mailto:mitglieder@junge-piraten.de">mitglieder@junge-piraten.de</a>.</p><?php } ?>
 <form action="?" method="post" class="form-horizontal">
  <div class="control-group">
