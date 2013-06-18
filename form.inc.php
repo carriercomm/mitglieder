@@ -29,7 +29,7 @@ function fillPDFForm($url, $codeprefix, $fdf, $fdf_opt, $data, $porto, $destFile
 	$fpdf->Text(23, 278, $codeprefix . "-" . $code);
 
 	if ($porto > 0) {
-		file_put_contents("/tmp/phppdf-".$rand."-porto.pdf", file_get_contents("http://porto.intern.junge-piraten.de/get.php?value=" . $porto));
+		file_put_contents("/tmp/phppdf-".$rand."-porto.pdf", file_get_contents("http://porto.intern.junge-piraten.de/get.php?value=" . $porto . "&usage=" . urlencode("Sendung " . $codeprefix . "-" . $code)));
 		$pagecount = $fpdf->setSourceFile("/tmp/phppdf-".$rand."-porto.pdf");
 		$tpl = $fpdf->importPage(1);
 		$fpdf->useTemplate($tpl, 0, 0, 0, 0, true);
