@@ -245,12 +245,12 @@ case "selbst":
 <?php } ?>
 
 <div class="createSepaModal modal hide">
- <form action="modify.createSepa.php" method="post" target="_blank" class="form-horizontal">
-  <div class="modal-header">
-   <button class="close" data-dismiss="modal">&times;</button>
-   <h3>SEPA-Mandat erzeugen</h3>
-  </div>
-  <div class="modal-body step1">
+ <div class="modal-header">
+  <button class="close" data-dismiss="modal">&times;</button>
+  <h3>SEPA-Mandat erzeugen</h3>
+ </div>
+ <div class="modal-body step1">
+  <form action="modify.createSepa.php" method="post" target="_blank" class="form-horizontal">
    <p>Leider sind wir dazu verpflichtet, das SEPA-Mandat im handschriftlich Unterschriebenen Original aufzubewahren. Daher werden wir dir hier ein druckfertiges PDF generieren, dass du nurnoch unterschreiben
     und abschicken musst. Wenn du einen Briefumschlag mit Sichtfenster besitzt, drucken wir dir auf Wunsch eine Briefmarke auf, damit du den Brief einfach in einen Briefkasten werfen kannst.</p>
    <p>Deine IBAN und die BIC findest du auf allen Kontoauszügen sowie auf allen neueren EC-Karten deiner Bank.</p>
@@ -280,12 +280,12 @@ case "selbst":
      </label>
     </div>
    </div>
-  </div>
-  <div class="modal-footer step1">
-   <button class="btn" data-dismiss="modal">Abbrechen</button>
-   <button class="btn btn-primary submit">Ok</button>
-  </div>
- </form>
+  </form>
+ </div>
+ <div class="modal-footer step1">
+  <button class="btn" data-dismiss="modal">Abbrechen</button>
+  <button class="btn btn-primary submit">Ok</button>
+ </div>
  <div class="modal-body step2 hide">
   <p>Danke für deine Hilfe! Dein Browser sollte ein PDF mit deinem Mandat geöffnet haben, dass du nurnoch versenden musst.</p>
  </div>
@@ -350,6 +350,8 @@ $(".createSepa").click(function (e) {
 	e.preventDefault();
 	$(".createSepaModal").modal();
 	$(".createSepaModal .step1 .submit").click(function () {
+		e.preventDefault();
+		$(".createSepaModal form").submit();
 		$(".createSepaModal .step1").hide();
 		$(".createSepaModal .step2").show();
 	});
