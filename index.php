@@ -59,7 +59,7 @@ if (isset($revision->natperson)) {
  <?php if ($zahlung == "selbst" && $currentBeitrag && $currentBeitrag->ausstehend > 0) { ?>
  <button class="btn requestExemption">Beitragsbefreiung beantragen</button>
  <?php } ?>
- <a href="https://formulare.junge-piraten.de/?<?php print(http_build_query(array("fields" => $query))) ?>" class="btn quitMembership">Formulare</a>
+ <a href="https://formulare.junge-piraten.de/?<?php print(http_build_query(array("fields" => $query))) ?>" class="btn">Formulare</a>
  <button class="btn btn-danger quitMembership">Austreten</button>
  <?php } ?>
 </div>
